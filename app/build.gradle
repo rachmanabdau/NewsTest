@@ -1,0 +1,207 @@
+plugins {
+    id 'com.android.application'
+    id 'kotlin-android'
+    id 'kotlin-android-extensions'
+    id 'androidx.navigation.safeargs.kotlin'
+    id 'kotlin-kapt'
+    id 'dagger.hilt.android.plugin'
+}
+
+android {
+    compileSdkVersion 30
+    buildToolsVersion "30.0.2"
+
+    defaultConfig {
+        applicationId "com.rachman.newstest20"
+        minSdkVersion 21
+        targetSdkVersion 30
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        debug {
+            buildConfigField "String", 'API_KEY', "\"bae7f9cf64194b458b179b1a04f82e69\""
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            debuggable true
+        }
+
+        release {
+            buildConfigField "String", 'API_KEY', "\"bae7f9cf64194b458b179b1a04f82e69\""
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+
+    androidExtensions {
+        experimental = true
+    }
+
+    hilt {
+        enableTransformForLocalTests = true
+    }
+
+    testOptions.unitTests {
+        includeAndroidResources = true
+        returnDefaultValues = true
+    }
+
+    buildFeatures {
+        dataBinding = true
+        viewBinding = true
+    }
+}
+
+dependencies {implementation fileTree(dir: "libs", include: ["*.jar"])
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$version_kotlin"
+    implementation 'androidx.core:core-ktx:1.3.2'
+    implementation 'androidx.appcompat:appcompat:1.2.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    implementation "androidx.activity:activity-ktx:$version_activity"
+    implementation "androidx.fragment:fragment-ktx:$version_fragment"
+    implementation 'androidx.annotation:annotation:1.1.0'
+    testImplementation 'junit:junit:4.13.1'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.2'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
+    testImplementation "androidx.arch.core:core-testing:2.1.0"
+
+    // ViewModel & Live Data
+    implementation "androidx.lifecycle:lifecycle-extensions:$version_lifecycle"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$version_lifecycle"
+    implementation "androidx.lifecycle:lifecycle-common-java8:$version_lifecycle"
+    implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.2.0'// Annotation processor
+    kapt "androidx.lifecycle:lifecycle-common-java8:$version_lifecycle"
+    // Saved state module for ViewModel
+    implementation "androidx.lifecycle:lifecycle-viewmodel-savedstate:$version_lifecycle"
+
+
+
+    // Navigation
+    implementation "androidx.navigation:navigation-fragment-ktx:$version_navigation"
+    implementation "androidx.navigation:navigation-ui-ktx:$version_navigation"
+
+    // Feature module Support
+    implementation "androidx.navigation:navigation-dynamic-features-fragment:$version_navigation"
+
+
+
+    // Kotlin Android Coroutines
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$version_coroutines"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$version_coroutines"
+    // Corouteine test
+    testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:$version_coroutines"
+
+    // Retrofit
+    implementation "com.squareup.retrofit2:retrofit:$version_retrofit"
+
+    // Moshi converter
+    implementation "com.squareup.retrofit2:converter-moshi:$version_retrofit"
+    implementation "com.jakewharton.retrofit:retrofit2-kotlin-coroutines-adapter:0.9.2"
+
+    // Moshi Library
+    implementation 'com.squareup.moshi:moshi-kotlin:1.11.0'
+
+    // Material components
+    implementation "com.google.android.material:material:1.2.1"
+
+    // hamcrest framework for more readeble testing
+    testImplementation "org.hamcrest:hamcrest-all:1.3"
+
+    // AndroidX Test - JVM testing
+    testImplementation "androidx.test:core-ktx:1.3.0"
+    testImplementation "org.robolectric:robolectric:4.4"
+    testImplementation "androidx.test.ext:junit-ktx:1.1.2"
+
+    implementation("com.squareup.okhttp3:okhttp:4.9.0")
+    // Retrofit testing
+    testImplementation('com.squareup.okhttp3:mockwebserver:4.9.0')
+
+    // Room Presistence Library
+    implementation "androidx.room:room-runtime:$version_room"
+    kapt "androidx.room:room-compiler:$version_room"
+    // optional - Kotlin Extensions and Coroutines support for Room
+    implementation "androidx.room:room-ktx:$version_room"
+    // optional - Test helpers
+    testImplementation "androidx.room:room-testing:$version_room"
+
+    // Glide
+    implementation 'com.github.bumptech.glide:glide:4.11.0'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.11.0'
+
+    // Preference
+    implementation "androidx.preference:preference-ktx:1.1.1"
+
+    // Pagination
+    implementation "androidx.paging:paging-runtime-ktx:$version_paging"
+    // alternatively - without Android dependencies for testing
+    testImplementation "androidx.paging:paging-common-ktx:$version_paging"
+
+    // Timber for debugging
+    implementation 'com.jakewharton.timber:timber:4.7.1'
+
+    coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:1.1.1'
+
+    // Dependencies for Android instrumented unit tests
+    androidTestImplementation "junit:junit:$version_junit"
+    androidTestImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:$version_coroutines"
+
+    // Testing code should not be included in the main code.
+    // Once https://issuetracker.google.com/128612536 is fixed this can be fixed.
+    debugImplementation "androidx.fragment:fragment-testing:$version_fragment"
+    implementation "androidx.test:core:$version_androidXTest"
+
+    // espresso
+    implementation "androidx.test.espresso:espresso-idling-resource:$version_espresso"
+    androidTestImplementation "androidx.test.espresso:espresso-core:$version_espresso"
+    androidTestImplementation "androidx.test.espresso:espresso-contrib:$version_espresso"
+    // AndroidJUnitRunner and JUnit Rules
+    androidTestImplementation 'androidx.test:runner:1.3.0'
+    androidTestImplementation 'androidx.test:rules:1.3.0'
+    // Assertions
+    androidTestImplementation 'androidx.test.ext:junit:1.1.2'
+    androidTestImplementation 'androidx.test.ext:truth:1.3.0'
+    androidTestImplementation 'com.google.truth:truth:1.0'
+
+    // mockito
+    androidTestImplementation "org.mockito:mockito-core:$version_mockito"
+    androidTestImplementation "com.linkedin.dexmaker:dexmaker-mockito:$version_dexMaker"
+    androidTestImplementation "androidx.test.espresso:espresso-contrib:$version_espresso"
+
+    // mockk for mcoking savedStateHandle
+    testImplementation "io.mockk:mockk:1.10.2"
+
+    // Hilt for DI
+    implementation "com.google.dagger:hilt-android:$version_dagger_hilt"
+    kapt "com.google.dagger:hilt-android-compiler:$version_dagger_hilt"
+    implementation "androidx.hilt:hilt-lifecycle-viewmodel:$version_hilt"
+    kapt "androidx.hilt:hilt-compiler:$version_hilt"
+    kaptAndroidTest "androidx.hilt:hilt-compiler:$version_hilt"
+
+    // Hilt testing dependency
+    androidTestImplementation "com.google.dagger:hilt-android-testing:$version_dagger_hilt"
+    // Make Hilt generate code in the androidTest folder
+    kaptAndroidTest "com.google.dagger:hilt-android-compiler:$version_dagger_hilt"
+    // For Robolectric tests.
+    testImplementation "com.google.dagger:hilt-android-testing:$version_dagger_hilt"
+    // ...with Kotlin.
+    kaptTest "com.google.dagger:hilt-android-compiler:$version_hilt"
+
+    // Circulat Image View
+    implementation 'de.hdodenhof:circleimageview:3.1.0'
+
+    // Gradle dependency on Shimmer for Android
+    implementation 'com.facebook.shimmer:shimmer:0.5.0'
+}
