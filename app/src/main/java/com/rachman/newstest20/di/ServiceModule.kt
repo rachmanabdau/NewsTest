@@ -29,7 +29,7 @@ object DispatchersModule {
 
     @Provides
     fun provideDispatchers(): CoroutineDispatcher {
-        return Dispatchers.IO
+        return Dispatchers.Main
     }
 
 }

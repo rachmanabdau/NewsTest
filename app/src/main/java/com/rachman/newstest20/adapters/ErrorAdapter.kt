@@ -6,7 +6,6 @@ import androidx.core.view.isVisible
 import androidx.paging.LoadState
 import androidx.paging.LoadStateAdapter
 import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.rachman.newstest20.databinding.RetryItemBinding
 
 class ErrorAdapter(
@@ -25,15 +24,7 @@ class ErrorAdapter(
     override fun onBindViewHolder(
         holder: ErrorViewHolder,
         loadState: LoadState
-    ) {
-        if (loadState is LoadState.Loading || loadState is LoadState.Error) {
-            // Set loading or error placeholder to full span (current span is 2)
-            val staggaredLayoutParam =
-                holder.itemView.layoutParams as StaggeredGridLayoutManager.LayoutParams
-            staggaredLayoutParam.isFullSpan = true
-        }
-        holder.onBind(loadState)
-    }
+    ) = holder.onBind(loadState)
 }
 
 class ErrorViewHolder(
