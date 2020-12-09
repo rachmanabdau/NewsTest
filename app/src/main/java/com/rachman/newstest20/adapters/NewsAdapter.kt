@@ -6,6 +6,7 @@ import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 import com.rachman.newstest.model.News
 import com.rachman.newstest20.R
 import com.rachman.newstest20.databinding.NewsItemBinding
@@ -52,8 +53,10 @@ class ShowViewHolder(
             binding.newsDesctipiton.text = news.description
 
             Glide.with(context).load(data.urlToImage)
-                .error(R.drawable.ic_baseline_error_24)
-                .into(binding.newsThumbnailItem)
+                    .error(R.drawable.ic_baseline_error_24)
+                    .apply(RequestOptions().override(600, 200))
+
+                    .into(binding.newsThumbnailItem)
 
             binding.parentNewsItem.setOnClickListener {
                 actionDetail(news)
