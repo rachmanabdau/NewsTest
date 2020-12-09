@@ -1,5 +1,6 @@
 package com.rachman.newstest20.home
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -10,6 +11,7 @@ import androidx.paging.LoadState
 import com.rachman.newstest20.R
 import com.rachman.newstest20.adapters.ErrorAdapter
 import com.rachman.newstest20.databinding.ActivityMainBinding
+import com.rachman.newstest20.detail.DetailActivity
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -25,9 +27,9 @@ class MainActivity : AppCompatActivity() {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
 
         val newsAdapter = NewsAdapter {
-            /*val intent = Intent(this, NewsDetail::class.java)
-            intent.putExtra(NewsDetail.NEWS_DETAIL_ID, it)
-            startActivity(intent)*/
+            val intent = Intent(this, DetailActivity::class.java)
+            intent.putExtra(DetailActivity.NEWS_DETAIL_ID, it)
+            startActivity(intent)
         }.apply {
             lifecycleScope.launch {
                 loadStateFlow.collectLatest { loadState ->

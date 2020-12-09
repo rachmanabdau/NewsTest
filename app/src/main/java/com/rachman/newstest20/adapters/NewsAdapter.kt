@@ -49,6 +49,7 @@ class ShowViewHolder(
             binding.newsTitleItem.text = news.title
             binding.newsSourceItem.text = context.getString(R.string.source_news, news.source.name)
             binding.newsDateItem.text = news.publishedAt
+            binding.newsDesctipiton.text = news.description
 
             Glide.with(context).load(data.urlToImage)
                 .error(R.drawable.ic_baseline_error_24)
