@@ -12,7 +12,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.NewsTest20">
-        <activity android:name=".detail.DetailActivity"></activity>
+        <activity
+            android:name=".detail.DetailActivity"
+            android:parentActivityName=".home.MainActivity" />
         <activity android:name=".home.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

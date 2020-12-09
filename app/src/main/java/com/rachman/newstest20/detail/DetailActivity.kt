@@ -16,6 +16,7 @@ class DetailActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_detail)
 
+        setupToolbar()
         val newsIntent = intent.getParcelableExtra<News.Article>(NEWS_DETAIL_ID)
 
         newsIntent?.apply {
@@ -32,5 +33,14 @@ class DetailActivity : AppCompatActivity() {
 
     companion object {
         const val NEWS_DETAIL_ID = "com.rachman.newstest.NEWS_DETAIL_ID"
+    }
+
+    fun setupToolbar() {
+        // my_child_toolbar is defined in the layout file
+        setSupportActionBar(binding.detailToolbar)
+
+        // Get a support ActionBar corresponding to this toolbar and enable the Up button
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
     }
 }
