@@ -11,6 +11,7 @@ import androidx.paging.LoadState
 import com.rachman.newstest20.R
 import com.rachman.newstest20.adapters.BannerAdapter
 import com.rachman.newstest20.adapters.ErrorAdapter
+import com.rachman.newstest20.adapters.MenuAdapter
 import com.rachman.newstest20.databinding.ActivityMainBinding
 import com.rachman.newstest20.detail.DetailActivity
 import dagger.hilt.android.AndroidEntryPoint
@@ -23,25 +24,15 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
 
+    private lateinit var newsAdapter: NewsAdapter
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
-        setupBanner()
 
-        val newsAdapter = NewsAdapter {
-            val intent = Intent(this, DetailActivity::class.java)
-            intent.putExtra(DetailActivity.NEWS_DETAIL_ID, it)
-            startActivity(intent)
-        }.apply {
-            lifecycleScope.launch {
-                loadStateFlow.collectLatest { loadState ->
-                    showError(loadState.refresh) { retry() }
-                }
-            }
-        }
-        binding.newsRvHome.adapter = newsAdapter.withLoadStateHeaderAndFooter(
-            header = ErrorAdapter(newsAdapter::retry), footer = ErrorAdapter(newsAdapter::retry)
-        )
+        setupBanner()
+        setupAdapter()
+        binding.menuRv.adapter = MenuAdapter()
 
         homeViewModel.getNewsList()
         homeViewModel.newsList.observe(this) {
@@ -67,5 +58,22 @@ class MainActivity : AppCompatActivity() {
     private fun setupBanner() {
         binding.bannerRv.adapter = BannerAdapter()
         binding.dotsIndicator.setViewPager2(binding.bannerRv)
+    }
+
+    private fun setupAdapter() {
+        newsAdapter = NewsAdapter {
+            val intent = Intent(this, DetailActivity::class.java)
+            intent.putExtra(DetailActivity.NEWS_DETAIL_ID, it)
+            startActivity(intent)
+        }.apply {
+            lifecycleScope.launch {
+                loadStateFlow.collectLatest { loadState ->
+                    showError(loadState.refresh) { retry() }
+                }
+            }
+        }
+        binding.newsRvHome.adapter = newsAdapter.withLoadStateHeaderAndFooter(
+            header = ErrorAdapter(newsAdapter::retry), footer = ErrorAdapter(newsAdapter::retry)
+        )
     }
 }

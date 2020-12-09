@@ -5,8 +5,11 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:focusableInTouchMode="true"
+        android:focusable="true">
 
+        <!-- Search bar and profile -->
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/mainappbar"
             android:layout_width="match_parent"
@@ -62,13 +65,26 @@
                 android:layout_height="match_parent"
                 tools:context=".beranda.MainActivity">
 
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/menu_rv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:nestedScrollingEnabled="false"
+                    android:padding="8dp"
+                    app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                    app:spanCount="3"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:listitem="@layout/menu_item"
+                    tools:itemCount="6" />
+
+                <!-- Banner pager -->
                 <androidx.viewpager2.widget.ViewPager2
                     android:id="@+id/banner_rv"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:padding="8dp"
+                    android:layout_marginTop="16dp"
                     android:clipToPadding="false"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toBottomOf="@id/menu_rv" />
 
                 <com.tbuonomo.viewpagerdotsindicator.DotsIndicator
                     android:id="@+id/dots_indicator"
@@ -90,6 +106,7 @@
                     android:visibility="gone"
                     layout="@layout/retry_item" />
 
+                <!-- news content -->
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/news_rv_home"
                     android:layout_width="match_parent"
