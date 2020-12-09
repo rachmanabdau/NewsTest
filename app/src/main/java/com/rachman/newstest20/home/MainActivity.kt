@@ -9,6 +9,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.lifecycleScope
 import androidx.paging.LoadState
 import com.rachman.newstest20.R
+import com.rachman.newstest20.adapters.BannerAdapter
 import com.rachman.newstest20.adapters.ErrorAdapter
 import com.rachman.newstest20.databinding.ActivityMainBinding
 import com.rachman.newstest20.detail.DetailActivity
@@ -25,6 +26,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
+        setupBanner()
 
         val newsAdapter = NewsAdapter {
             val intent = Intent(this, DetailActivity::class.java)
@@ -37,7 +39,6 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         }
-
         binding.newsRvHome.adapter = newsAdapter.withLoadStateHeaderAndFooter(
             header = ErrorAdapter(newsAdapter::retry), footer = ErrorAdapter(newsAdapter::retry)
         )
@@ -61,5 +62,10 @@ class MainActivity : AppCompatActivity() {
         binding.errorPlaceholder.tryAgainButton.setOnClickListener {
             retry()
         }
+    }
+
+    private fun setupBanner() {
+        binding.bannerRv.adapter = BannerAdapter()
+        binding.dotsIndicator.setViewPager2(binding.bannerRv)
     }
 }
