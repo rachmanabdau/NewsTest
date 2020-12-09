@@ -40,6 +40,7 @@ class ErrorViewHolder(
 
         binding.errorMessage.isVisible = state is LoadState.Error
         binding.tryAgainButton.isVisible = state is LoadState.Error
+        binding.loadProgress.isVisible = state is LoadState.Loading
 
         binding.tryAgainButton.setOnClickListener {
             retry()

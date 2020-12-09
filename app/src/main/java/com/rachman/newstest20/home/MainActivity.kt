@@ -33,6 +33,7 @@ class MainActivity : AppCompatActivity() {
         setupBanner()
         setupAdapter()
         binding.menuRv.adapter = MenuAdapter()
+        binding.queueBackground.setBackgroundResource(R.drawable.background_gradient)
 
         homeViewModel.getNewsList()
         homeViewModel.newsList.observe(this) {
@@ -48,6 +49,7 @@ class MainActivity : AppCompatActivity() {
             binding.errorPlaceholder.errorMessage.text =
                 (loadState).error.localizedMessage
         }
+        binding.errorPlaceholder.loadProgress.isVisible = loadState is LoadState.Loading
 
         binding.errorPlaceholder.root.isVisible = loadState is LoadState.Error
         binding.errorPlaceholder.tryAgainButton.setOnClickListener {
